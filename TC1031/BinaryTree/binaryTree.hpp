@@ -12,15 +12,18 @@ class BinaryTree {
         BinaryTree();
         ~BinaryTree();
         bool insertNode(int data);
-        bool insertNodeRec(int data);
+        bool insertNodeRecursively(int data);
         bool deleteNode();
-        int* searchNode();
+        int* searchNode(int data);
+        int* searchNodeExecution(Node* curNode, int data);
+
         int getHeight(int data);
         bool isEmpty();
         bool printAll();
         bool clear();
     private:
         Node* root;
-        int depth;
         void printAllExecution(Node* node, int curDepth);
+        bool insertNodeRecExecution(Node *&curNode, Node *newNode);
+        bool clearExecute(Node *&node);
 };

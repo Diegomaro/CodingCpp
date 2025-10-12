@@ -4,7 +4,7 @@
 BinaryTree::Node::Node(): _left(nullptr), _right(nullptr){};
 BinaryTree::Node::Node(int data): _data(data), _left(nullptr), _right(nullptr){};
 
-BinaryTree::BinaryTree(): root(nullptr), depth(0) {};
+BinaryTree::BinaryTree(): root(nullptr) {};
 
 
 BinaryTree::~BinaryTree(){
@@ -12,18 +12,15 @@ BinaryTree::~BinaryTree(){
 }
 
 bool BinaryTree::insertNode(int data){
-    Node* newNode = new(std::nothrow) Node();
+    Node* newNode = new(std::nothrow) Node(data);
     if(!newNode){
         return false;
     }
-    newNode->_data = data;
     if(!root){
         root = newNode;
-        depth = 0;
         return true;
     }
     Node* tmp = root;
-    int curDepth = 1;
 
     while(tmp->_left || tmp->_right){
         if(tmp->_data > data) {
@@ -42,8 +39,10 @@ bool BinaryTree::insertNode(int data){
                 return true;
             }
         }
-        else return false; //Nodo repetido
-        curDepth++;
+        else {
+            delete newNode;
+            return false; //Nodo repetido
+        }
     }
     if(data < tmp->_data){
         tmp->_left = newNode;
@@ -52,18 +51,68 @@ bool BinaryTree::insertNode(int data){
         tmp->_right = newNode;
         return true;
     }
+    delete newNode;
     return false;
+}
+
+bool BinaryTree::insertNodeRecursively(int data){
+    Node* newNode = new(std::nothrow) Node(data);
+    if(!newNode){
+        return false;
+    }
+    if(insertNodeRecExecution(root, newNode)){
+        return true;
+    } else{
+        delete newNode;
+        return false;
+    }
+}
+
+bool BinaryTree::insertNodeRecExecution(Node *&curNode, Node *newNode){
+    if(!curNode){
+        curNode = newNode;
+        return true;
+    }
+    if(curNode->_data > newNode->_data){
+        return insertNodeRecExecution(curNode->_left, newNode);
+    } else if(curNode->_data < newNode->_data){
+        return insertNodeRecExecution(curNode->_right, newNode);
+    }
+    return false;
+}
+
+int *BinaryTree::searchNode(int data){
+    return searchNodeExecution(root, data);
+}
+
+int *BinaryTree::searchNodeExecution(Node* node, int data){
+    if(!node){
+        return nullptr;
+    }
+    if(data < node->_data){
+        searchNodeExecution(node->_left, data);
+    } else if(data > node->_data){
+        searchNodeExecution(node->_right, data);
+    } else{
+        return &node->_data;
+    }
+}
+
+bool BinaryTree::isEmpty(){
+    if(root) return false; 
+    return true;
+}
+
+bool BinaryTree::clear(){
+    if(!root) return false;
+    
+}
+bool BinaryTree::clearExecute(Node *&curNode){
+        
 }
 
 bool BinaryTree::printAll(){
     if (!root) return false;
-    /*
-    for non recursive method
-    int separation = 1;
-    for(int i = 0; i < depth-1; i++){
-        separation *=2;
-    }
-    */
     std::cout << "arbol:" << std::endl;
     printAllExecution(root, 0);
     return true;
