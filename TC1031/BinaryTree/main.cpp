@@ -26,6 +26,7 @@ int main(){
     btree.printAll();
     btree.insertNode(9);
     btree.printAll();
-    
+    btree.searchNode(9);
+    btree.clear();
     return 0;
 }

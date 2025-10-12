@@ -25,5 +25,5 @@ class BinaryTree {
         Node* root;
         void printAllExecution(Node* node, int curDepth);
         bool insertNodeRecExecution(Node *&curNode, Node *newNode);
-        bool clearExecute(Node *&node);
+        void clearExecute(Node *&node);
 };

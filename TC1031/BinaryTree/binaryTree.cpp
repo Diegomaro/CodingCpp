@@ -96,6 +96,7 @@ int *BinaryTree::searchNodeExecution(Node* node, int data){
     } else{
         return &node->_data;
     }
+    return nullptr;
 }
 
 bool BinaryTree::isEmpty(){
@@ -104,11 +105,23 @@ bool BinaryTree::isEmpty(){
 }
 
 bool BinaryTree::clear(){
-    if(!root) return false;
-    
+    if(!root) return false;   
+    clearExecute(root);
+    root = nullptr;
+    return true;
 }
-bool BinaryTree::clearExecute(Node *&curNode){
-        
+
+void BinaryTree::clearExecute(Node *&curNode){
+    if(curNode->_left){
+        clearExecute(curNode->_left);
+    }
+    if(curNode->_right){
+        clearExecute(curNode->_right);
+    }
+    if(!curNode->_left && !curNode->_right){
+        delete curNode;
+        curNode = nullptr; // asigna lastNode->_left o _right a nullptr
+    }
 }
 
 bool BinaryTree::printAll(){
