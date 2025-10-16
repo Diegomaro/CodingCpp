@@ -6,8 +6,9 @@ class Catalogue{
         Catalogue();
         ~Catalogue();
         bool loadFromCSV(const std::string& filename);
-        BinaryTree tree; // hacer privado
+        bool printAllMonsters(); //temporal function
         //Monster getRandomMonster();
     private:
         void loadCurrentAttribute(Monster &monster, std::stringstream &ss, std::string cell, int ctr);
+        BinaryTree tree;
 };

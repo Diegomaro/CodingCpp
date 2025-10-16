@@ -1,5 +1,4 @@
 #include "Monster.hpp"
-
 Monster::Monster(){}
 
 Monster::~Monster(){}
@@ -18,3 +17,11 @@ std::string Monster::getSize(){return _size;}
 short Monster::getAc(){return _ac;}
 short Monster::getHp(){return _hp;}
 std::string Monster::getAllign(){return _align;}
+
+bool Monster::operator>(Monster &RIGHT){
+    return (this->getName() > RIGHT.getName());
+}
+
+bool Monster::operator<(Monster &RIGHT){
+    return (this->getName() < RIGHT.getName());
+}

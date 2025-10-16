@@ -22,7 +22,7 @@ bool BinaryTree::insertNode(Monster data){
     Node* tmp = root;
 
     while(tmp->_left || tmp->_right){
-        if(tmp->_data.getName() > data.getName()) { // cambiar por sobreoperadores
+        if(tmp->_data > data) {
             if(tmp->_left){
                 tmp = tmp->_left;
             } else{
@@ -30,7 +30,7 @@ bool BinaryTree::insertNode(Monster data){
                 return true;
             }
         }
-        else if(tmp->_data.getName() < data.getName()) { // sobreoperadores
+        else if(tmp->_data < data) {
             if(tmp->_right){
                 tmp = tmp->_right;
             } else{
@@ -43,10 +43,10 @@ bool BinaryTree::insertNode(Monster data){
             return false; 
         }
     }
-    if(data.getName() < tmp->_data.getName()){
+    if(data < tmp->_data){
         tmp->_left = newNode;
         return true;
-    } else if (data.getName() > tmp->_data.getName()){
+    } else if (data > tmp->_data){
         tmp->_right = newNode;
         return true;
     }
@@ -60,9 +60,9 @@ bool BinaryTree::deleteNode(Monster monster){
 
 bool BinaryTree::findNodeToDelete(Node *&node, Monster data){
     if(!node) return false;
-    if(node->_data.getName() < data.getName()) {
+    if(node->_data < data) {
         return findNodeToDelete(node->_right, data);
-    } else if(node->_data.getName() > data.getName()) {
+    } else if(node->_data > data) {
         return findNodeToDelete(node->_left, data);
     } else{
         deleteNodeExecute(node);
@@ -118,9 +118,9 @@ bool BinaryTree::searchNodeExecution(Node* node, Monster data){
     if(!node){
         return false;
     }
-    if(data.getName() < node->_data.getName()){
+    if(data < node->_data){
         return searchNodeExecution(node->_left, data);
-    } else if(data.getName() > node->_data.getName()){
+    } else if(data > node->_data){
         return searchNodeExecution(node->_right, data);
     } 
     return true;
@@ -145,8 +145,7 @@ void BinaryTree::clearExecute(Node *&curNode){
         clearExecute(curNode->_right);
     }
     delete curNode;
-    curNode = nullptr; // asigna lastNode->_left o _right a nullptr
-    
+    curNode = nullptr;
 }
 
 bool BinaryTree::printAll(){
@@ -163,7 +162,7 @@ void BinaryTree::printAllExecution(Node* node, int curDepth){
      for(int i = 0; i < curDepth; i++){
             std::cout << "    ";
         }
-    std::cout << node->_data.getName() << std::endl;
+    std::cout << node->_data.getName() << std::endl; //another overload
     if(node->_left){
         printAllExecution(node->_left, curDepth + 1);
     }

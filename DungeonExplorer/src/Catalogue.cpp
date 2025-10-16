@@ -33,6 +33,10 @@ bool Catalogue::loadFromCSV(const std::string& filename){
     return true;
 }
 
+bool Catalogue::printAllMonsters(){
+    return tree.printAll();
+}
+
 void Catalogue::loadCurrentAttribute(Monster &monster, std::stringstream &ss, std::string cell, int ctr){
     switch(ctr){
         case 0: {				
