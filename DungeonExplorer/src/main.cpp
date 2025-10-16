@@ -6,4 +6,5 @@ int main(){
     if(!catalogue.loadFromCSV("media/monsters.csv")){
         std::cout << "not able to load!" << std::endl;
     }
+    catalogue.tree.printAll();
 }
