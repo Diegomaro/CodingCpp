@@ -1,16 +1,20 @@
 #include <iostream>
-#include "BinaryTree.hpp"
 
-BinaryTree::Node::Node(): _left(nullptr), _right(nullptr){};
-BinaryTree::Node::Node(Monster data): _data(data), _left(nullptr), _right(nullptr){};
+template <typename T>
+BinaryTree<T>::Node::Node(): _left(nullptr), _right(nullptr){};
+template <typename T>
+BinaryTree<T>::Node::Node(T data): _data(data), _left(nullptr), _right(nullptr){};
 
-BinaryTree::BinaryTree(): root(nullptr) {};
+template <typename T>
+BinaryTree<T>::BinaryTree(): root(nullptr) {};
 
-BinaryTree::~BinaryTree(){
+template <typename T>
+BinaryTree<T>::~BinaryTree(){
     clear();
 }
 
-bool BinaryTree::insertNode(Monster data){
+template <typename T>
+bool BinaryTree<T>::insertNode(T data){
     Node* newNode = new(std::nothrow) Node(data);
     if(!newNode){
         return false;
@@ -54,11 +58,13 @@ bool BinaryTree::insertNode(Monster data){
     return false;
 }
 
-bool BinaryTree::deleteNode(Monster monster){
-    return findNodeToDelete(root, monster);
+template <typename T>
+bool BinaryTree<T>::deleteNode(T data){
+    return findNodeToDelete(root, data);
 }
 
-bool BinaryTree::findNodeToDelete(Node *&node, Monster data){
+template <typename T>
+bool BinaryTree<T>::findNodeToDelete(Node *&node, T data){
     if(!node) return false;
     if(node->_data < data) {
         return findNodeToDelete(node->_right, data);
@@ -71,7 +77,8 @@ bool BinaryTree::findNodeToDelete(Node *&node, Monster data){
     return false;
 }
 
-void BinaryTree::deleteNodeExecute(Node *&node){
+template <typename T>
+void BinaryTree<T>::deleteNodeExecute(Node *&node){
     if(!node->_left && !node->_right){
         delete node;
         node = nullptr;
@@ -103,18 +110,21 @@ void BinaryTree::deleteNodeExecute(Node *&node){
     return;
 }
 
-BinaryTree::Node *&BinaryTree::findMinNode(Node *&node){
+template <typename T>
+typename BinaryTree<T>::Node *&BinaryTree<T>::findMinNode(Node *&node){
     if(node->_left){
         return findMinNode(node->_left);
     }
     return node;
 }
 
-bool BinaryTree::searchNode(Monster data){
+template <typename T>
+bool BinaryTree<T>::searchNode(T data){
     return searchNodeExecution(root, data);
 }
 
-bool BinaryTree::searchNodeExecution(Node* node, Monster data){
+template <typename T>
+bool BinaryTree<T>::searchNodeExecution(Node* node, T data){
     if(!node){
         return false;
     }
@@ -126,18 +136,21 @@ bool BinaryTree::searchNodeExecution(Node* node, Monster data){
     return true;
 }
 
-bool BinaryTree::isEmpty(){
+template <typename T>
+bool BinaryTree<T>::isEmpty(){
     if(root) return false; 
     return true;
 }
 
-bool BinaryTree::clear(){
+template <typename T>
+bool BinaryTree<T>::clear(){
     if(!root) return false;   
     clearExecute(root);
     return true;
 }
 
-void BinaryTree::clearExecute(Node *&curNode){
+template <typename T>
+void BinaryTree<T>::clearExecute(Node *&curNode){
     if(curNode->_left){
         clearExecute(curNode->_left);
     }
@@ -148,21 +161,23 @@ void BinaryTree::clearExecute(Node *&curNode){
     curNode = nullptr;
 }
 
-bool BinaryTree::printAll(){
+template <typename T>
+bool BinaryTree<T>::printAll(){
     if (!root) return false;
     std::cout << "arbol:" << std::endl;
     printAllExecution(root, 0);
     return true;
 }
 
-void BinaryTree::printAllExecution(Node* node, int curDepth){
+template <typename T>
+void BinaryTree<T>::printAllExecution(Node* node, int curDepth){
     if(node->_right){
         printAllExecution(node->_right, curDepth + 1);
     }
      for(int i = 0; i < curDepth; i++){
             std::cout << "    ";
         }
-    std::cout << node->_data.getName() << std::endl; //another overload
+    std::cout << node->_data << std::endl;
     if(node->_left){
         printAllExecution(node->_left, curDepth + 1);
     }

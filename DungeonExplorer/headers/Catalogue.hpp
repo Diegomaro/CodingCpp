@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "BinaryTree.hpp"
+
 class Catalogue{
     public:
         Catalogue();
@@ -10,5 +11,5 @@ class Catalogue{
         //Monster getRandomMonster();
     private:
         void loadCurrentAttribute(Monster &monster, std::stringstream &ss, std::string cell, int ctr);
-        BinaryTree tree;
+        BinaryTree<Monster> tree;
 };

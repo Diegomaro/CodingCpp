@@ -22,7 +22,7 @@ public:
 
     bool operator >(Monster &RIGHT);
     bool operator <(Monster &RIGHT);
-    friend void operator <<(std::ostream& COUT, Monster &MONSTER); //friend type
+    friend std::ostream& operator <<(std::ostream &COUT, Monster &MONSTER);
 private:
     std::string _name;
     float _cr; //challenge rating

@@ -1,4 +1,3 @@
-#include "linked.h"
 #include <iostream>
 
 template <typename T>

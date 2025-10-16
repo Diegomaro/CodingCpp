@@ -25,3 +25,7 @@ bool Monster::operator>(Monster &RIGHT){
 bool Monster::operator<(Monster &RIGHT){
     return (this->getName() < RIGHT.getName());
 }
+
+std::ostream& operator <<(std::ostream& COUT, Monster &MONSTER){
+    return COUT << MONSTER.getName();
+}

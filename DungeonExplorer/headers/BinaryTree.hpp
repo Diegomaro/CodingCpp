@@ -1,31 +1,33 @@
 #include "Monster.hpp"
 
+template <typename T>
 class BinaryTree{
 public:
     class Node{
         public:
-            Monster _data;
+            T _data;
             Node *_left;
             Node* _right;
             Node();
-            Node(Monster data);
+            Node(T data);
         private:
     };
     BinaryTree();
     ~BinaryTree();
 public:
-    bool insertNode(Monster data);
-    bool deleteNode(Monster data);
-    bool searchNode(Monster data);
+    bool insertNode(T data);
+    bool deleteNode(T data);
+    bool searchNode(T data);
     bool isEmpty();
     bool printAll();
     bool clear();
 private:
     Node* root;
-    bool searchNodeExecution(Node* curNode, Monster data);
+    bool searchNodeExecution(Node* curNode, T data);
     void printAllExecution(Node* node, int curDepth);
     void clearExecute(Node *&node);
-    bool findNodeToDelete(Node *&node, Monster data);
+    bool findNodeToDelete(Node *&node, T data);
     void deleteNodeExecute(Node *&node);
     Node*& findMinNode(Node *&node);
 };
+#include "BinaryTree.tpp"
